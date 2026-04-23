@@ -25,6 +25,35 @@ export async function fetchLatestRate(base: string, target: string): Promise<num
   return rate;
 }
 
+export async function fetchAllRates(base: string): Promise<Record<string, number>> {
+  const j = await fetchJson("latest", base);
+  return j[base.toLowerCase()] ?? {};
+}
+
+function isoDaysAgo(days: number): string {
+  const d = new Date();
+  d.setDate(d.getDate() - days);
+  return d.toISOString().slice(0, 10);
+}
+
+export async function fetchWeeklyChange(
+  base: string,
+  target: string,
+): Promise<{ current: number; weekAgo: number } | null> {
+  try {
+    const [now, week] = await Promise.all([
+      fetchJson("latest", base),
+      fetchJson(isoDaysAgo(7), base),
+    ]);
+    const cur = now[base.toLowerCase()]?.[target.toLowerCase()];
+    const old = week[base.toLowerCase()]?.[target.toLowerCase()];
+    if (typeof cur !== "number" || typeof old !== "number") return null;
+    return { current: cur, weekAgo: old };
+  } catch {
+    return null;
+  }
+}
+
 // Fetch ~12 historical points evenly spaced over the last year (one per ~month)
 export async function fetchYearHistory(
   base: string,

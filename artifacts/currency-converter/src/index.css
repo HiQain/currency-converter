@@ -268,6 +268,90 @@ body {
   line-height: 1;
 }
 
+.xe-hero--padded {
+  padding: 40px 0 100px;
+}
+.xe-hero__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+  color: #fff;
+  position: relative;
+  z-index: 2;
+}
+.xe-hero__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.xe-hero__tagline {
+  color: #e0e7ff;
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.xe-card--chart { padding: 28px; }
+
+@media (max-width: 768px) {
+  .xe-hero--padded { padding: 24px 0 80px; }
+  .xe-hero__inner { padding: 0 16px; }
+  .xe-hero__top { margin-bottom: 24px; }
+  .xe-hero__tagline { font-size: 12px; }
+  .xe-card--chart { padding: 16px; }
+}
+
+.xe-converter-wrap {
+  max-width: 1100px;
+  margin: -70px auto 0;
+  padding: 0 24px;
+  position: relative;
+  z-index: 5;
+}
+.xe-card--converter { padding: 28px; }
+
+.xe-converter-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.xe-section {
+  max-width: 1100px;
+  margin: 60px auto 0;
+  padding: 0 24px;
+}
+
+.xe-section--lg {
+  max-width: 1100px;
+  margin: 80px auto 0;
+  padding: 0 24px;
+}
+
+.xe-section__title {
+  font-size: clamp(20px, 3.2vw, 28px);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 28px;
+  color: var(--text-dark);
+}
+
+@media (max-width: 768px) {
+  .xe-converter-wrap { padding: 0 16px; margin-top: -50px; }
+  .xe-card--converter { padding: 18px; border-radius: 16px; }
+  .xe-converter-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .xe-input-block { padding: 12px 14px; }
+  .xe-amount { font-size: 20px; }
+  .xe-section, .xe-section--lg { padding: 0 16px; margin-top: 48px; }
+  .xe-rate-table th, .xe-rate-table td { padding: 10px 12px; font-size: 13px; }
+}
+
 @media (max-width: 640px) {
   .brand-mark {
     gap: 10px;
@@ -281,4 +365,11 @@ body {
     width: 40px;
     height: 40px;
   }
+  .dropdown-menu { width: min(320px, calc(100vw - 32px)); }
+}
+
+@media (max-width: 480px) {
+  .xe-cur-btn { font-size: 13px; padding: 4px 6px; }
+  .flag { width: 18px; height: 18px; }
+  .xe-amount { font-size: 18px; }
 }

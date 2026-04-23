@@ -3,6 +3,8 @@ import { ArrowLeftRight, MapPin } from "lucide-react";
 import CurrencyDropdown from "@/components/CurrencyDropdown";
 import RateChart from "@/components/RateChart";
 import RateTable from "@/components/RateTable";
+import PopularPairings from "@/components/PopularPairings";
+import LiveCurrencyCharts from "@/components/LiveCurrencyCharts";
 import {
   COUNTRY_TO_CURRENCY,
   CURRENCY_MAP,
@@ -116,9 +118,9 @@ export default function Converter() {
   return (
     <div style={{ minHeight: "100vh" }}>
       {/* Hero */}
-      <div className="xe-hero" style={{ paddingTop: 40, paddingBottom: 100 }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px", color: "#fff", position: "relative", zIndex: 2 }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 36 }}>
+      <div className="xe-hero xe-hero--padded">
+        <div className="xe-hero__inner">
+          <div className="xe-hero__top">
             <div className="brand-mark">
               <span className="brand-mark__badge">
                 <img
@@ -131,7 +133,7 @@ export default function Converter() {
               </span>
               <span className="brand-mark__text">Currency Converter</span>
             </div>
-            <div style={{ color: "#e0e7ff", fontSize: 13, opacity: 0.85 }}>
+            <div className="xe-hero__tagline">
               Live FX rates · 200+ currencies
             </div>
           </div>
@@ -142,19 +144,19 @@ export default function Converter() {
               </div>
             )}
             <h1 style={{ fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 800, margin: 0, lineHeight: 1.15, letterSpacing: "-0.02em" }}>
-              {formatAmount(numericAmount)} {from} = {converted !== null ? formatAmount(converted) : "—"} {to}
+              Exchange Rate and Currency Converter Tool
             </h1>
             <p style={{ marginTop: 14, color: "#e0e7ff", fontSize: 17, fontWeight: 400 }}>
-              Convert {fromMeta?.name} to {toMeta?.name} — fresh mid-market rates
+              Check live foreign currency exchange rates
             </p>
           </div>
         </div>
       </div>
 
       {/* Converter card overlay */}
-      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px", marginTop: -70, position: "relative", zIndex: 5 }} id="converter">
-        <div className="xe-card" style={{ padding: 28 }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: 12, alignItems: "stretch" }}>
+      <div className="xe-converter-wrap" id="converter">
+        <div className="xe-card xe-card--converter">
+          <div className="xe-converter-grid">
             <div className="xe-input-block">
               <label>From</label>
               <div className="row">
@@ -190,31 +192,34 @@ export default function Converter() {
             </div>
           </div>
 
-          <div style={{ marginTop: 22 }}>
-            <div style={{ fontSize: 22, fontWeight: 700, color: "var(--text-dark)" }}>
-              1.00 {from} = {rate !== null ? rate.toFixed(8).replace(/0+$/, "").replace(/\.$/, "") : "—"} {to}
-            </div>
-            <div style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 4 }}>
-              {loading ? "Updating…" : `Mid-market rate at ${updatedAt}`}
+          <div style={{ marginTop: 22, textAlign: "center" }}>
+            <div style={{ fontSize: 30, fontWeight: 700, color: "var(--text-dark)" }}>
+              {formatAmount(numericAmount)} {from} = {converted !== null ? formatAmount(converted) : "—"} {to}
             </div>
           </div>
         </div>
       </div>
 
       {/* Rate table */}
-      <div style={{ maxWidth: 1100, margin: "60px auto 0", padding: "0 24px" }}>
-        <h2 style={{ fontSize: 28, fontWeight: 700, textAlign: "center", marginBottom: 30 }}>
+      <div className="xe-section">
+        <h2 className="xe-section__title">
           {from} to {to} exchange rates today
         </h2>
         {rate !== null && <RateTable from={from} to={to} rate={rate} />}
       </div>
 
       {/* Chart */}
-      <div style={{ maxWidth: 1100, margin: "60px auto 0", padding: "0 24px" }}>
-        <div className="xe-card" style={{ padding: 28 }}>
+      <div className="xe-section">
+        <div className="xe-card xe-card--chart">
           <RateChart from={from} to={to} />
         </div>
       </div>
+
+      {/* Popular pairings */}
+      <PopularPairings base={from} onSelect={(target) => setTo(target)} />
+
+      {/* More live currency charts */}
+      <LiveCurrencyCharts base={from} />
 
       <div style={{ height: 60 }} />
     </div>
