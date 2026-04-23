@@ -1,0 +1,8 @@
+[build]
+  command = "pnpm --filter @workspace/currency-converter run build"
+  publish = "artifacts/currency-converter/dist/public"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
