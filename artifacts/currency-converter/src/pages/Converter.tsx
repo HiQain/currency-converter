@@ -5,6 +5,7 @@ import RateChart from "@/components/RateChart";
 import RateTable from "@/components/RateTable";
 import PopularPairings from "@/components/PopularPairings";
 import LiveCurrencyCharts from "@/components/LiveCurrencyCharts";
+import SiteFooter from "@/components/SiteFooter";
 import {
   COUNTRY_TO_CURRENCY,
   CURRENCY_MAP,
@@ -26,7 +27,6 @@ export default function Converter() {
   const [loading, setLoading] = useState(false);
   const [locDetected, setLocDetected] = useState<string | null>(null);
   const initRef = useRef(false);
-  const currentYear = new Date().getFullYear();
 
   // Auto-detect location → set "To" currency based on user's country (every page load)
   useEffect(() => {
@@ -222,21 +222,7 @@ export default function Converter() {
       {/* More live currency charts */}
       <LiveCurrencyCharts base={from} />
 
-      <footer className="xe-footer">
-        <div className="xe-footer__inner">
-          <p className="xe-footer__copy">
-            © {currentYear} Currency Converter. All rights reserved.
-          </p>
-          <a
-            className="xe-footer__link"
-            href="https://hiqain.com/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Powered by Hiqain Pvt Ltd
-          </a>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }
